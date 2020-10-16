@@ -1,4 +1,8 @@
 # AWS End-of-Support Migration Program (EMP) for Windows Server User Guide
+-----
+
+The End-of-Support Migration Program for Windows Server (EMP) migrates legacy applications from Windows Server 2003, 2008, and 2008 R2 to newer, supported versions on AWS without any code refactoring. The EMP technology decouples the application from the existing operating system and packages it with all necessary application files and components. The program then replatforms it to a supported version of the Windows operating system on AWS. After the migration, any outdated API calls are redirected, enabling the application to run on the latest versions of the Windows OS.
+
 
 -----
 *****Copyright &copy; 2020 Amazon Web Services, Inc. and/or its affiliates. All rights reserved.*****
@@ -12,7 +16,8 @@ Amazon's trademarks and trade dress may not be used in
      owners, who may or may not be affiliated with, connected to, or 
      sponsored by Amazon.
 
------
+
+
 ## Contents
 + [What Is AWS End-of-Support Migration Program (EMP) for Windows Server?](doc_source/emp-what-is.md)
 + [How AWS End-of-Support Migration Program (EMP) for Windows Server works](doc_source/emp-how-it-works.md)
