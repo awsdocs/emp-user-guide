@@ -77,10 +77,6 @@ Apply the following steps to the target server to which the IIS\-based web appli
    PS C:\>  Import-IISWebSiteWithDependentFeatures.ps1 -Path C:\DestinationFolder\EMP-IIS
    ```
 
-   `-WebSite` — specify the name of one or more website\(s\) identified in the **Sites** node\.
-
-   `-EMPPackagePath` — specify the folder to which the EMP package has been deployed\. For example, `C:\Programdata\EMP\Package0001`\.
-
    When you run this command, the installation of [MSDeploy](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/deploying-web-packages) provided with the EMP release and included in the `IISTools` folder will be silently installed if it is not already\.
 
    The command will then install and set up the server with the Windows features identified from the source server\. If a feature that was identified in the source server is deprecated and a replacement feature is not identified, a warning message is displayed\. You can edit the `Config.xml` file located in the root of the `EMP-IIS` folder if a manual change to the list of features to install is required\.
