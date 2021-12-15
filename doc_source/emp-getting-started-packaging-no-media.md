@@ -8,6 +8,8 @@
 + [Capture](#emp-getting-started-packaging-no-media-capture)
 + [Create the export bundle](#emp-getting-started-packaging-no-media-export)
 + [Create the new package](#emp-getting-started-packaging-no-media-create-package)
++ [Package applications on multiple drives](#emp-getting-started-packaging-no-media-multiple-drives)
++ [Integrate COM\+ applications](#emp-reverse-packaging-com)
 
 ## Prerequisites for reverse packaging<a name="emp-getting-started-packaging-no-media-prereqs"></a>
 
@@ -15,86 +17,26 @@ The following prerequisites must be met to successfully package an application w
 
 ### Requirements<a name="emp-getting-started-packaging-no-media-prereqs-requirements"></a>
 
-To successfully migrate server applications when the installation media is unavailable, you must verify the following requirements\.
-+ A virtual machine with a working version of the application\.
-+ An identical machine as the original virtual machine running the same operating system and service packs for packaging\.
-+ Both machines must meet the [software prerequisites](#emp-getting-started-packaging-no-media-prereqs-software)\.
-+ You must be able to stop or disable all non\-essential processes and services on the server before packaging\.
+To successfully migrate server applications when the installation media is unavailable, you must have access to a virtual server or instance with a working version of the application\. 
 
-For server applications, we recommend that you create a single package for all components that run on the server role in the application group\. This ensures that processes will not require additional configuration to enable them to communicate with each other when virtualized\. You deploy only a single package when provisioning a new server to perform the required role in the application group\.
-
-### Software<a name="emp-getting-started-packaging-no-media-prereqs-software"></a>
+### Software prerequisites<a name="emp-getting-started-packaging-no-media-prereqs-software"></a>
 
 The following software is required to package an application without the installation media\.
-+ **Windows Sysinternals Process Monitor \(procman\.exe\)**\. Use to trace files, processes, and registry keys used when an application is running\. 
-+ **The EMP package builder**\. The following must be installed to use the package builder:
-  + The Windows Imaging Component \(WIC\)
-  + Microsoft \.NET Framework version 4\.0 or later
-+ **The EMP toolkit**, including the various command line tools, such as `GeneratePackageSource.exe`, `RemvoeKnownFolders.exe`, and `ExportFromSystem.exe`\.
++ **Windows Sysinternals Process Monitor \(Procmon\.exe\)**\. Used to trace files, processes, and registry keys of a running application\. Copy the `procmon.exe` tool to a folder on the instance\. In the packaging procedure described in this topic, we copy it to the `ReversePackagingTools` folder of the EMP Compatibility Package Builder installation \.
++ **The EMP package builder**\. To install the EMP Compatibility Package Builder, see [ Install AWS EMP Compatibility Package Builder ](emp-install-compatibility-package-builder.md)\. You can find the reverse packaging tools in the **Tools** folder of the installation\. 
+  + On a 32\-bit instance, the default installation folder path is `C:\Program Files\AWS\EMP`\.
+  + On a 64\-bit instance, the default installation folder path is `C:\Program Files (x86)\AWS\EMP`\.
 + A **text editor** with syntax highlighting that supports JSON and XML\. [Notepad\+\+](https://notepad-plus-plus.org/) is one free option\.
 
-To install Process Monitor, `procmon.exe` and the EMP toolkit on the machine that is running the application you want to package, complete the following steps\.
+The next phase of this process is to use Process Monitor to discover the files and registry keys that are used by the application on the source machine\. 
 
-1. Install the EMP Compatibility Package Builder to the default installation folder\. 
-   + On a 32\-bit instance, the default installation folder path is: `C:\Program Files\AWS\EMP`\.
-   + On a 64\-bit instance, the default installation folder path is: `C:\Program Files (x86)\AWS\EMP`\.
-
-1. Copy the Sysinternals Process Monitor, `procmon.exe` to the folder on the instance\. In the procedure described in this topic, we copy it to `C:\EMP\Tools`\.
-
-### Set up Process Monitor for Reverse Packaging<a name="emp-procmon"></a>
-
-Process Monitor is an advanced monitoring tool for Windows that captures real\-time file system, registry, process, and thread activity\. The first step of the EMP reverse packaging process is to capture a Process Monitor \(procmon\) log of the entire functional running of the application on the source operating system\. The log is used to create an EMP package consisting of all of the required components for the application to successfully function on a modern operating systems after it has been migrated\. An incomplete capture can result in missing application components\.
-
-You can download the latest version of Process Monitor from Microsoft at: [https://docs\.microsoft\.com/en\-us/sysinternals/downloads/procmon](https://docs.microsoft.com/en-us/sysinternals/downloads/procmon)\.
-
-Perform the following steps to set up capturing for Process Monitor\. Use these steps only as a guide\. The monitoring process requirements for each application can vary\.
-
-1. Download the tool on the system running the application that you want to discover\.
-
-1. As an administrator, open the command prompt, and launch Process Monitor\.
-
-   ```
-    Procmon.exe /AcceptEula /Noconnect
-   ```
-
-   `/AcceptEula` automatically accepts the EULA license and bypasses the EULA dialog box\.
-
-   `/Noconnect` This flag prevents Process Monitor from automatically starting log activity\.
-
-1. Configure Process Monitor to save captured logs to a backing file as opposed to virtual memory by navigating to **File**>**Backing Files** and choosing the **Use file name** option\. Select the location and file to which you want to save the backing file\.
-**Note**  
-If the system used to capture the logs does not have sufficient storage capacity, you can store the data in another location, such as on a different server or external storage device\.
-
-1. Start the capture by choosing **Capture**\. To stop the capture, choose **Capture** again\.
-
-The following optional steps reduce the size of the log file, where possible\. To reduce the size of the log file, we recommend that you run procmon only when running the application windows to reduce capture of background noise and unrelated workflows\. 
-
-1. Verify that the following options are not selected:
-   + **Process and Thread Activity**
-   + **Network Activity**
-   + **Profiling Events**
-
-1. Select **Drop Filtered Events** in the **Filter** menu\. This prevents events that don't meet the filter criteria from being added to the log\.
-
-1. The following table contains common exclusion items related to the operating system that are not required for the application capture\. You can add these exclusions to the Process Monitor application capture exclusion filter\.  
-**Exclusions in the `EMP_Procmon_Exclusions.PMF` filter**    
-[\[See the AWS documentation website for more details\]](http://docs.aws.amazon.com/emp/latest/userguide/emp-getting-started-packaging-no-media.html)
-
-You can further expand the number of exclusion items by performing the following steps\.
-
-1. Run procmon for a limited period of time or without the execution process\.
-
-1. Analyze the capture logs and note any processes that are not related to the application\.
-
-1. Add the unrelated processes as additional exclusion items\.
-
-1. For applications where a complete list of required processes are known, you can start a Process Monitor capture and include only these processes in the capture\. If this method results in missed process applications, the final logs may not contain the required information to complete a working package\.
+To optimize the setup of Process Monitor for reverse packaging, see [Optimize Process Monitor for Reverse Packaging](emp-procmon.md)\.
 
 ## Use Process Monitor to discover the files and registry keys used by the application<a name="emp-getting-started-packaging-no-media-discovery"></a>
 
 The next phase of the process is to use Process Monitor to discover the files and registry keys that are used by the application on the source machine\.
 
-To set up Process Monitor for application discovery, see [Set up Process Monitor for Reverse Packaging](#emp-procmon)\.
+To set up Process Monitor for application discovery, see [Optimize Process Monitor for Reverse Packaging](emp-procmon.md)\.
 
 **Topics**
 + [Prepare to discover the application](#emp-getting-started-packaging-no-media-discovery-prepare)
@@ -152,10 +94,7 @@ Later in this procedure, we will save only the processes that we believe should 
 
 ## Choose which processes to save in the capture<a name="emp-getting-started-packaging-no-media-choose-processes"></a>
 
-After saving the processes, you must choose which processes to save as the basis for creating the application\. You must also include any external dependencies required by the application\.
-
-**Important**  
-Do not proceed with saving the capture before eliminating processes that are not required by the service\. Include only those processes required by the application to run successfully\.
+After saving the capture, you must choose which processes to save\. Choose only the processes required by the application to run successfully\.
 
 To save processes in the capture, complete the following steps\.
 
@@ -181,7 +120,7 @@ To save processes in the capture, complete the following steps\.
 
 ## Capture the files and registries<a name="emp-getting-started-packaging-no-media-capture"></a>
 
-After creating the log file, you must run the EMP tools to process the \.CSV capture file created by the Process Monitor\. The following two tools are used in this process:
+After creating the log file, you must run the EMP reverse packaging tools to process the \.CSV capture file created by Process Monitor\. The following two tools are used in this process:
 + **GeneratePackageSource**\. This command compiles a list of the files and registry keys accessed by the application from the Process Monitor capture\. These are exported to a \.JSON file one line at a time\.
 + **RemoveKnownFolders**\. This command removes known files, folders, and registry keys that are not required from the Process Monitor capture\. Examples include background Windows services and components that are already present on the target server\.
 
@@ -205,8 +144,6 @@ To process the capture file with EMP tools, complete the following steps\.
 **Note**  
 The `GeneratePackageSource` and `RemoveKnownFolders` commands can be run one at a time by first piping the `logfile.CSV` into `GeneratePackageSource.exe`, and then running `RemoveKnownFolders.exe` to generate the `source.json`\. If the `GeneratePackageSource.exe` hangs, the Process Monitor may still have a lock on the CSV file\. If this is the case, resolve by rebooting the machine\.
 
-   When the command completes, the `C:\Program Files\AWS\EMP\Tools\ReversePackagingTools` displays\. Leave the command prompt open because it will be used again later in this process\.
-
 1. Navigate to Windows Explorer and verify that the \.JSON file has been created and that its size is greater than `0`\.
 
 1. Edit the \.JSON file in a text editor, such as Notepad\+\+\.
@@ -214,7 +151,7 @@ The `GeneratePackageSource` and `RemoveKnownFolders` commands can be run one at 
 1. Remove the lines where the path name is the same because a folder includes any subfolders and contents\.   
 ![\[Lines showing the same path.\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-same-path.png)
 
-   In this example, the \.JSON file can be updated to `"%ProgramFiles\\Microsoft SQL Server"`, which includes the folders and contents of this folder listed previously\.
+   In this example, the files listed in the selected area of the \.JSON file can be updated to `"%ProgramFiles\\Microsoft SQL Server"`, because it includes the folders and contents of this folder\.
 
 1. Remove other items that are not relevant to the application and change entries, such as hard\-coded drive letters, to variables\.
 
@@ -225,7 +162,7 @@ The `GeneratePackageSource` and `RemoveKnownFolders` commands can be run one at 
 After you edit and save the filtered source \.JSON file, you must run the `ExportFromSystem` EMP tool\. This tool reads the \.JSON file and compiles copies of files and extracts copies of registry keys required to run the application\. It adds them to the `Files` and `Registry` folders in the `ReversePackagingTools` folder\. When the export is complete, these folders and their contents are compressed into a file called `PackageSource.zip`\.
 
 **Note**  
-Before you run this command, verify that the SQL Server 2000 application services and processes are stopped so that all of the required resources are successfully exported from the system\. Any processes and services that are in use will prevent a successful export\. To do this, open SQL Server Services Manager from the System tray and stop each of the services in the **Services** list\. When the services are stopped, open the context \(right\-click\) the application in the System tray, and choose **Exit**\.
+Before you run this command, verify that all application services and processes are stopped so that all of the required resources are successfully exported from the system\. Any processes and services that are in use will prevent a successful export\.
 
 Follow these steps to run the `ExportFromSystem` EMP tool\.
 
@@ -247,23 +184,21 @@ Follow these steps to run the `ExportFromSystem` EMP tool\.
 **Note**  
 It takes a while before the `C:\Program Files\AWS\EMP\Tools\ReversePackagingTools` prompt displays\. This is because of the number of actions being performed by the `ExportFromSystem` tool\.
 
-1. Open Windows Explorer and verify that the `PackageSource.zip` has been created and that its size is greater than `0`\. When the `PackageSource.zip` is created, you can run the application on a new virtual machine\.
+1. Open Windows Explorer and verify that the `PackageSource.zip` has been created and that its size is greater than `0`\. When the `PackageSource.zip` is created, you can use this to create an EMP package for the application\.
 
 ## Create the new packaged version of the application<a name="emp-getting-started-packaging-no-media-create-package"></a>
 
-The final steps in the reverse packaging process are to create a new packaged version of the application\.
+The final step in the reverse packaging process is to create a new packaged version of the application\.
 
-To package an application, the virtual machine on which the application is to be packaged must be running the same version and service packs as the source machine of the application\. The target virtual machine must not have any IAM policies applied to it\.
+To package an application, the virtual machine on which the application is to be packaged must be running the same version and service packs as the source machine of the application\. 
 
-You must first copy the `PackageSource.zip` that was created on the source computer to a new virtual machine\.
+You must first copy the `PackageSource.zip` that you previously created to a new virtual machine\.
 
 1. Log on to the new virtual machine\.
 
-1. Within the `C:\\EMP` folder, create a folder with the name of the application to be packaged and add the `PackageSource.zip` to this folder\.
+1. Copy and extract the `PackageSource.zip` to an empty folder\.
 
-1. Extract the contents of the `PackageSource.zip` to this folder\.
-
-   The contents of the `PackageSource.zip` should be the same as the ` C:\Program Files\AWS\EMP\Tools\ReversePackagingTools` folder on the source machine\.
+   The contents of the `PackageSource.zip` should be the same as the `C:\Program Files\AWS\EMP\Tools\ReversePackagingTools` folder on the source machine\.
 
 1. Follow the steps to create a new package using the EMP Compatibility Package Builder\. When **Install Application** is displayed, you can install the application\.
 
@@ -290,3 +225,176 @@ You can now install the application using the EMP `DeploytoSystem` tool, which a
    It will take a while before your folder is redisplayed\. If you are prompted to reboot the instance, you should do so only after the application is installed\. If you reboot, run the Compatibility Package Builder using the desktop shortcut\.
 
    When the command prompt is displayed, return to the EMP Compatibility Package Builder to complete the packaging process\.
+
+## Package applications on multiple drives<a name="emp-getting-started-packaging-no-media-multiple-drives"></a>
+
+This section shows the additional configuration required to capture applications that are set up on multiple drives\. For this example, a typical install of SQL Server 2000 is installed on the `C` drive, and the data is stored on the `D` drive\.
+
+**Application directories**
++ **Data directory** — `D:\Program Files\Microsoft SQL Server`
++ **Application directory** — `C:\Program Files\Microsoft SQL Server`
+
+The Process Monitor backing file should be used if process monitoring will take several minutes or hours\. Create this on the non\-system drive with additional filters\.
+
+**`Example: package applications on multiple drives for SQL Server 2000`**
+
+1. Expand `PackageSource.zip` to the `C` drive\.
+
+1. Run the `DeployToSystem` command from the `C` drive location\. File copy errors may occur if you run this command from the `D` drive\.
+
+1. Package files in the `C` drive may contain references to `D` drive locations\. These locations must be redirected in the `AppRegistry.xml` file\.
+
+   ```
+   <Write>
+       <KeyName>HKEY_CURRENT_USER\Software\AWSEMP\Compatibility.Package|%GUID%\HKLM\SOFTWARE\Microsoft\MSSQLServer\Replication</KeyName>
+       <ValueName>WorkingDirectory</ValueName>
+       <Value ValueType="String">D:\ProgramFiles\Microsoft SQL Server\MSSQL\REPLDATA</Value>
+   </Write>
+   ```
+
+   Many applications also have an internal configuration file that contains important file or directory paths\. For example, SQL 2000 includes a `sqlsunin.ini` file with important file paths\. If redirection is not implemented in this file for calls to the `D` drive file locations, the SQL Server fails to start\.
+
+   The procmon and compatibility engine logs will show several `non-redirected` and `path not found` errors, especially in the `ERRORLOG` file\.
+
+1. Add the following folder match redirection to `Redirections.xml` to redirect calls from the `D` drive to the package\.
+
+   ```
+   <FolderMatch>
+      <From>D:\</From>
+      <To>ProgData</To>
+   </FolderMatch>
+   ```
+
+## Integrate COM\+ applications into EMP packages<a name="emp-reverse-packaging-com"></a>
+
+This topic contains information for scripted integration of COM \+applications into EMP packages\. This includes how to detect whether an application includes COM\+ applications and how to include COM\+ applications in EMP packages\.
+
+**Topics**
++ [Detect COM\+ applications](#emp-reverse-packaging-com-detect)
++ [Include COM\+ applications](#emp-reverse-packaging-com-include)
+
+### Detect whether an application includes COM\+applications<a name="emp-reverse-packaging-com-detect"></a>
+
+**Detect COM\+ applications**
+
+1. Open the Component Services console using one of the following methods\.
+   + Run `dcomcnfg` in the command line or using PowerShell and expand Component Services\.
+   + Open Component Services from the **Start** menu: **Start**>**All Programs**>**Administrative Tools**>**Component Services**\.
+   + Enter `Component Services` in the **Search** box\.
+
+1. Expand Component Services to list the COM\+ applications\. The following are the default COM\+ applications that are included in Windows Server 2003 R2 and 2008 R2, with IIS and Application Server roles enabled\. \.NET Utilities is included only in Windows Server 2003 R2\. COM\+ Utilities \(32\-bit\) is only included on Windows Server 2008 R2\. The rest of the applications are included on both operating system versions\. 
+   + \.NET Utilities \(Windows Server 2003 R2\)
+   + COM\+ Explorer
+   + COM\+ QC Dead Letter Queue Listener
+   + COM\+ Utilities
+   + COM\+ Utilities 32\-bit \(Windows Server 2008 R2\)
+   + System Application
+
+   The names of the COM\+applications typically indicate to which applications they belong\.
+
+### Include COM\+ applications in an EMP package<a name="emp-reverse-packaging-com-include"></a>
+
+To include COM\+ applications in EMP packages, perform an EMP package build using the standard or reverse packaging models\. In this example, the Source Server is the server instance upon which standard packaging was performed, or upon which the process monitoring was performed if the package is built using reverse packaging\.
+
+**Export the COM\+ applications from the source server**
+
+1. Open the Component Services console using one of the following methods\.
+   + Run `dcomcnfg` in the command line or using PowerShell and expand Component Services\.
+   + Open Component Services from the **Start** menu: **Start**>**All Programs**>**Administrative Tools**>**Component Services**\.
+   + Enter `Component Services` in the **Search** box\.
+
+1. Expand COM\+ Applications and identify the COM\+ applications that are installed according to the specified applications\.
+
+1. Right\-click on the first COM\+ application that you want to export to open the context menu, and select **Properties**\.
+
+1. Choose the **Activation** tab to display the **Activation type** details\.
+
+1. Change the activation type to **Server application**\. Choose **OK** on the two warning messages, and then choose the **Advanced** tab\.
+
+1. Under **Debugging**, select **Launch in debugger** so that you can edit the **Debugger path**\. The default debugger path is `C:\Windows\system32\dllhost.exe /ProcessID:{GUID}`\. For example, `C:\Windows\system32\dllhost.exe /ProcessID:{0481F901-E8DC-446C-B82F-7746E380214D}`\.
+
+1. Add the following string to the path, where `<DeployedPackagePath>` is the path to the deployed EMP package \(`%DefaultDir%`\)\. Ensure that there is one space character between this string and the default path:
+
+   ```
+   "<DeployedPackagePath>\Compatibility.Package.Engine.exe" /f
+   ```
+
+   The debugger path should be set to:
+
+   ```
+   "<DeployedPackagePath>\Compatibility.Package.Engine.exe" /f C:\Windows\system32\dllhost.exe /ProcessID:{GUID}
+   ```
+
+   For example:
+
+   ```
+   "C:\ProgramData\EMP\SQL2005STDSP4_7807\Compatibility.Package.Engine.exe" /f C:\Windows\system32\dllhost.exe /ProcessID:{0481F901-E8DC-446C-B82F-7746E380214D}
+   ```
+
+1. Return to the **Activation** tab and set the **Activation type** back to **Library application**\. Choose **Apply** and **OK** to close the COM\+ Properties window\.
+
+1. Repeat steps three through eight for all of the other COM\+ applications you discovered\.
+
+1. Right\-click on the first COM\+ application top open the context menu and select **Export**\.
+
+1. Choose **Next** on the Export Wizard\.
+
+1. Enter the path to the exported MSI file and select **Export user identities with roles**\. Choose **Next**\.
+
+1. Choose **Finish** to complete the export\.
+
+1. The exported COM\+ application MSI and `.cab` files are exported to the specified location\.
+
+1. Repeat steps ten through fourteen for all of the COM\+ applications you discovered\.
+
+1. Copy all of the exported COM\+ applications into the root folder of the EMP package\.
+
+**Discover missing dependent files**
+
+1. On a clean instance running the same operating system as the source server, verify that the required IIS and Application Server roles are enabled\. 
+
+1. Deploy the EMP package\. Do not install the COM\+ export at this time\.
+
+   The exported COM\+ applications in the MSI file often do not include all of the dependencies required to register the COM\+ applications on a new server\. In this case, the dependent libraries would have been captured into the EMP package\. However, when the COM\+ MSI installation runs, the installations fails because the libraries cannot be found\. 
+
+1. Open \(double\-click\) the first COM\+ MSI to start the installation\. If dependencies are not missing and the installations successfully completes, the COM\+ application should appear in the Component Services\. Run the other COM\+ MSI files\. If all of the COM\+ MSI installations complete successfully, then proceed to the next procedure \(Integrate the COM\+ application installation into the package deployment\)\. If any installations fail with the error message `Error registering COM+ Application. Contact your support personnel for more information`, proceed with the next steps to discover and add the missing libraries\.
+
+1. Launch SysInternals Process Monitor \(procmon\), clear the procmon window, start monitoring, and attempt the first failed MSI installation again\.
+
+1. Stop the monitoring when the error appears\.
+
+1. Include a filter with a path that contains `C:\Program Files\COMPlus Applications` \(applicable to 32\-bit COM\+ applications installed on Windows Server 2003 and 64\-bit COM\+ applications installed on Windows Server 2008 R2\)\. Missing DLLs and possibly TLB files are displayed\. If you are running Windows Server 2008 R2 and no missing libraries are displayed, modify your filter to include `C:\Program Files (x86)\COMPlus Applications` to discover any 32\-bit COM\+ libraries required by your application\.
+
+1. Search the ProgData directory for the missing files\. When you have found them, create the native directory `C:\Program Files\COMPlus Applications\GUID` and copy the files from their package location into the GUID folder\.
+
+1. Clear the procmon screen and attempt the installation again\. If it completes, then all of the dependencies have been found\. If it does not complete, repeat step 7 to discover the missing files\. 
+
+1. Repeat this process until all of the COM\+ applications have been successfully installed\. You may have to modify your filter to contain `C:\Program Files (x86)\COMPlus Applications` to pick up any missing 32\-bit COM\+ application libraries\. The COMPlus Applications folders should now include all of the libraries required to register all of the COM\+ applications\.
+
+1. Copy the COMPlus Applications folder from the ` C:\Program Files` into the corresponding location in the EMP package \(`ProgData\Program Files`\)\. Repeat the same process for `C:\Program Files (x86)` if you have discovered any 32\-bit COM\+ libraries on a 64\-bit machine\.
+
+**Integrate the COM\+ application installation into the package deployment**  
+When your COM\+ applications are in the package root folder and, if there were any missing COM\+ registration dependencies, the discovered libraries in the COMPlus Applications folders are in the package, add the COM\+ application installation to the deployment using the `DeploymentScript.xml` feature\. The following example tasks are required to add the COM\+ application installation to the deployment\.
+
+The first tasks copy the COMPlus Applications folders into their corresponding native locations\. This is required only if there are any missing COM\+ registration dependencies\. Add another task to copy the `ProgData\Program Files(x86)\COMPlus Applications` if you added this to your package\. The second task, or set of tasks, runs the MSI installations\.
+
+```
+<Install>
+  <Programs>
+    <Program Order="0" PreInstall="true">
+      <ProcessWindowStyle>Normal</ProcessWindowStyle>
+      <Path>%SystemX86%\CMD.exe</Path>
+      <Args>/c XCOPY /E /H /I /R /Q /Y "C:\ProgramData\EMP\SQL2005STDSP4_7807\ProgData\Program Files\COMPlus Applications" "C:\Program Files\COMPlus Applications"</Args>
+      <WaitCondition TimeoutInSeconds="0">Exit</WaitCondition>
+    </Program>
+    <Program Order="1" PostInstall="true">
+      <ProcessWindowStyle>Hidden</ProcessWindowStyle>
+      <Path>%SystemX86%\msiexec.exe</Path>
+      <Args>/i "%DefaultDir%\Microsoft.SqlServer.MSMQTask.MSI" /L*v "%DefaultDir%\Microsoft.SqlServer.MSMQTask.MSIInstallLog.txt</Args>
+      <WaitCondition TimeoutInSeconds="0">Exit</WaitCondition>
+    </Program>
+  </Programs>
+</Install>
+```
+
+Your deployed package can now be used as a source package for a successful deployment of your package, which includes COM\+ applications\. To test the package, copy it to another server instance\. The next time the package is deployed, it should automatically install the COM\+ applications\. The debugger setting in the COM\+ applications allows them to be virtualized by the package engine\.

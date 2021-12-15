@@ -6,7 +6,7 @@ Perform the following steps to install the AWS EMP Compatibility Package Builder
 
 1. If you have not done so already, download AWS EMP Compatibility Package Builder from the [AWS End\-of\-Support Migration Program \(EMP\) for Windows Server product page](http://aws.amazon.com/emp-windows-server)\.
 
-   New releases of the AWS End\-of\-Support Migration Program \(EMP\) for Windows Server Compatibility Packager are provided in MSI format\. To upgrade to a new version from a previous version, uninstall the previous version by using the **Add or Remove Programs** feature from legacy Windows operating systems, or from **Programs and Features** in the **Control Panel** for later operating systems\. Then, reinstall the package with the latest MSI\.
+   New releases of the AWS End\-of\-Support Migration Program \(EMP\) for Windows Server Compatibility Package Builder are provided in MSI format\. To upgrade to a new version from a previous version, uninstall the previous version by using the **Add or Remove Programs** feature from legacy Windows operating systems, or from **Programs and Features** in the **Control Panel** for later operating systems\. Then, reinstall the package with the latest MSI\.
 
 1. After you have downloaded the EMP tools, double\-click the Compatibility Package Builder file to run it\.
 

@@ -111,7 +111,7 @@ The source package root folder contains two folders, along with a list of files\
   + **ComRegistryKeys\.xml** — Contains the COM, DCOM, and COM\+ registration data of the packaged application\. 
   + **DeploymentScript\.xml** — Introduces custom configurations into an EMP package\. See [Managing EMP custom configurations](emp-custom-configurations.md)\. 
   + **EMP\.TelemetryClient\.exe** — Program that collects some basic operational information about the usage of EMP to improve the product\. The ability of EMP to send telemetry data to AWS is mandatory to deploy packages\. For more information, see [Deploy an EMP package](emp-deploy.md)\. For data collected, see [Data collected by the AWS End\-of\-Support Migration Program \(EMP\) for Windows Server ](emp-security-data.md)\.
-  + **EMP\.TelemetryClient\.exe\.config** — Passes settings to the Telemetry Client, for example, the AWSProfileName\.
+  + **EMP\.TelemetryClient\.exe\.config** — Passes settings to the Telemetry Client, for example, the `AWSProfileName`\.
   + **EnvironmentVariables\.xml ** — Contains the captured environment variables that are required to be available to the virtualized application\.
 
     ```

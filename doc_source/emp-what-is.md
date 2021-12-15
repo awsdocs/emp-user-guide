@@ -41,6 +41,9 @@ The process of capturing a legacy application using the EMP package builder on t
 **Clean packaging server**  
 A server instance of the Windows operating system version that is supported by the application to be packaged\. 
 
+**Compatibility package**  
+When the EMP compatibility packaging process is complete, the output of the package builder is called an EMP compatibility package\. 
+
 ## Supported operating systems and requirements<a name="emp-what-is-supported-os"></a>
 
 For supported operating systems and requirements to successfully migrate your application with AWS End\-of\-Support Migration Program \(EMP\) for Windows Server, see [AWS End\-of\-Support Migration Program \(EMP\) for Windows Server System requirements](emp-supported-os.md)\.
@@ -49,7 +52,7 @@ For supported operating systems and requirements to successfully migrate your ap
 
 AWS End\-of\-Support Migration Program \(EMP\) for Windows Server offers standalone tools that you download and install on your developer workstation\. You can download the EMP tools from the [End\-of\-Support Migration Program for Windows Server product page](http://aws.amazon.com/emp-windows-server/)\.
 
-New releases of the AWS End\-of\-Support Migration Program \(EMP\) for Windows Server Compatibility Packager are provided in MSI format\. To upgrade to a new version from a previous version, uninstall the previous version by using the **Add or Remove Programs** feature from legacy Windows operating systems, or from **Programs and Features** in the **Control Panel** for later operating systems\. Then, reinstall the package with the latest MSI\.
+New releases of the AWS End\-of\-Support Migration Program \(EMP\) for Windows Server Compatibility Package Builder are provided in MSI format\. To upgrade to a new version from a previous version, uninstall the previous version by using the **Add or Remove Programs** feature from legacy Windows operating systems, or from **Programs and Features** in the **Control Panel** for later operating systems\. Then, reinstall the package with the latest MSI\.
 
 ## Pricing for EMP<a name="emp-pricing"></a>
 

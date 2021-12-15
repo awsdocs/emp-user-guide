@@ -24,7 +24,7 @@ Each component is updated as follows\.
 If the file type associations source file \(`FileAssociations.xml`\) in the new package is the same as the one in the currently deployed package, `/update` will recreate any missing file type associations and restore values or types to the original values and types specified during the initial deployment\. 
 
 **Note**  
-The `/update` switch preserves any values that appear in the registry that are not specified in the source file\. If the file type associations source file \(`FileAssociations.xml`\) in the new package is different from the one in the currently deployed package, `/update` will delete the registry values that do not appear in `FileAssociations.xml` and update values and types that have changed\.
+The `/update` switch preserves any values that appear in the registry that are not specified in the source file\. If the file type associations source file \(`FileAssociations.xml`\) in the new package is different from the one in the currently deployed package, `/update` deletes the registry values that do not appear in `FileAssociations.xml` and updates values and types that have changed\.
 
 **Shortcuts**  
 New shortcuts specified in `Shortcuts.xml` will be created\. Shortcuts that do not exist in the XML file will be removed\. Fields that are different between the currently deployed and the new version to be deployed will be updated to the latest version\.
@@ -34,4 +34,4 @@ A registry update will be performed the next time the application runs\. This do
 
 The registry update removes all keys under `{appid}`, but not the values of the keys, and creates all of the entries specified in the `AppRegistry.xml` file\. The update then sets the last modified time to the time of the new `AppRegistry.xml file`\. 
 
-Subsequent application start events will not trigger registry updates because the modified time of the file will match the value stored in the registry\. If the last modified time cannot be found in the registry, the registry will be created using the latest `AppRegistry.xml file` file\. If the `AppRegistry.xml file` file is invalid, `/update` will report an error and will not remove any application registry\. 
+Subsequent application start events will not initiate registry updates because the modified time of the file will match the value stored in the registry\. If the last modified time cannot be found in the registry, the registry will be created using the latest `AppRegistry.xml file` file\. If the `AppRegistry.xml file` file is invalid, `/update` will report an error and will not remove any application registry\. 

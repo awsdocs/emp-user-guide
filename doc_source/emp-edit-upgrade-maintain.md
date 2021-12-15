@@ -1,6 +1,6 @@
 # Edit, upgrade, and maintain an EMP package<a name="emp-edit-upgrade-maintain"></a>
 
- The EMP Package Editor is a tool that is used to modify existing EMP compatibility packages\. You can use the Package Editor to apply upgrades, security updates, hot fixes and service packs to the packaged application\. You can also use the Editor to maintain the EMP components\. The editor supports reboots so that you can apply an application update which requires a reboot during installation\. 
+ The EMP Package Editor is a tool that is used to modify existing EMP compatibility packages\. You can use the Package Editor to apply upgrades, security updates, hot fixes, and service packs to the packaged application\. You can also use the Editor to maintain the EMP components\. The editor supports reboots so that you can apply an application update that requires a reboot during installation\. 
 
 **Important**  
 You must use the Package Editor to update an EMP package on the same architecture on which the original package was created\. For example, if the package was created on an x86 machine, then the Editor must update the package on an x86 machine\. 
@@ -37,7 +37,7 @@ Perform the following steps to edit an application in an EMP package\.
 
 1. When you have finished editing files, folders, or registry keys, choose **Save** to build the changes into an updated package\.
 
-1. When the Package Editor updates a package, it creates a new package folder for the updated package\. It appends the folder name with a version number\. The original packages is left unchanged for future reference\. In addition, the package ID is not changed so that you can use the updated package to update a deployed instance of the original package\.
+1. When the Package Editor updates a package, it creates a new package folder for the updated package\. It appends the folder name with a version number\. The original package is left unchanged for future reference\. In addition, the package ID is not changed so that you can use the updated package to update a deployed instance of the original package\.
 
 1. To update a deployed EMP package with an updated version, run the following command on the server running the original deployed package\.
 
@@ -49,7 +49,7 @@ Perform the following steps to edit an application in an EMP package\.
 
 Perform the following steps to upgrade an application in an EMP package\.
 
-1. Because some patch installers check for the presence of an application before installing updates, verify that you are using the Windows Server operating system version supported by the application and the update, and include the original application installed natively on the server\.
+1. Some patch installers check for the presence of an application before installing updates\. So verify that you are using the Windows Server operating system version supported by the application and the update, and include the original application installed natively on the server\.
 
 1. Verify that the latest version of the EMP Compatibility Package Builder is installed on the server you want to update\.
 
@@ -75,7 +75,7 @@ Perform the following steps to upgrade an application in an EMP package\.
 
 When a new version of EMP is released, you can update deployed EMP packages with new binaries\. Perform the following steps to update a deployed EMP package with new EMP binaries\.
 
-1. Verify that the latest version of the EMP Compatibility Packager installed on the server\.
+1. Verify that the latest version of the EMP Compatibility Package Builder installed on the server\.
 
 1. Navigate to the Package Builder installation directory\.
 

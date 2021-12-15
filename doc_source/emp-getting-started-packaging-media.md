@@ -1,6 +1,6 @@
 # How to package an application when installation media is available \(standard packaging\)<a name="emp-getting-started-packaging-media"></a>
 
-When installation media is available, an application is packaged with the EMP compatibility package builder\. The package builder uses installation snapshot\-based packaging along with runtime analysis to create compatibility packages for applications\. 
+When installation media is available, an application is packaged with the EMP Compatibility Package Builder\. The package builder uses installation snapshot\-based packaging along with runtime analysis to create compatibility packages for applications\. 
 
 **Topics**
 + [Stage 1: Install capture \(Required\)](#emp-media-install-capture)

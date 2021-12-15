@@ -23,7 +23,7 @@ You can configure the AWS profile on the server using the AWS CLI or AWS Tools f
 
 **AWS CLI**
 
-When you use the AWS CLI, profile information is stored in the `C:\Users\<username>\.aws` directory\. Use the `aws configure` command to configure the profile for the IAM user you set up to allow for `execute-api:Invoke` permissions\. The AWS CLI can be downloaded from the [AWS Command Line Interface]() page\. For more information about how to specify a profile using the AWS CLI, see [Named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)\.
+When you use the AWS CLI, profile information is stored in the `C:\Users\<username>\.aws` directory\. Use the `aws configure` command to configure the profile for the IAM user you set up to allow for `execute-api:Invoke` permissions\. The AWS CLI can be downloaded from the [Installing, updating, and uninstalling the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html) page\. For more information about how to specify a profile using the AWS CLI, see [Named profiles](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)\.
 
 AWS CLI example
 

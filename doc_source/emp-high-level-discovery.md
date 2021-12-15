@@ -22,4 +22,4 @@ The following table shows a discovery checklist to guide you through the discove
 | Other application details | What is the bit rate of the application: 32\- or 64\-bit? Does it use COM\+ or DCOM components? Are Windows Services installed or used by the application? Do any services require domain or local service accounts? Is the application subject to Data Execution Prevention \(DEP\)? Are there any firewall ports that should be opened? | 
 | Windows features and roles required | The Windows features and roles required by the application to set up on the modern operating system\. | 
 | Known issues | Any known issues of the application to account for during the testing phases\. | 
-| Cross\-check against EMP limitations | EMP compatibility verification\. | 
+| Cross\-check against EMP limitations | Verify whether the application is in scope for EMP packaging\. | 

@@ -2,7 +2,7 @@
 
 This section provides a high\-level overview of the EMP process, including the steps involved in each phase of the process\.
 
-![\[Overview of the EMP process.\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-process-2.png)
+![\[Overview of the EMP process.\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-process-2-b.png)
 
 **Topics**
 + [Discovery](#emp-steps-discovery)

@@ -53,6 +53,8 @@ Apply the following steps to the legacy \(source\) server that hosts the IIS\-ba
 
    `-OutputDirectory` — specify the folder to which the website contents and configuration will be saved\.
 
+   `-DisableContent` — optional argument to export the configuration of the legacy IIS websites without exporting the web application files\. This command is useful when the web application files are stored on a network drive that is mapped on the server, and there is no requirement to migrate them to the modern Windows Server\. 
+
    When you run this command, the installation of [MSDeploy](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/deploying-web-packages) provided with the EMP release and included in the `IISTools` folder will be silently installed if it is not already\.
 
    When the command completes, a folder is created in the output directory location that you specified\. The folder is called `EMP-IIS`\. In addition, this folder captures the Windows features that are installed on the legacy server\.
@@ -71,15 +73,11 @@ Apply the following steps to the target server to which the IIS\-based web appli
 
 1. Install the EMP Compatibility Package Builder on the target server\. The EMP IIS migration tools are located in the `Tools/IISTools` folder within the installation directory \(64\-bit system: `C:\Program Files (x86)\AWS\EMP\` or 32\-bit system: `C:\Program Files\AWS\EMP\`\)\.
 
-1. Open PowerShell as an administrator and change the directory to the `IISTools` folder\. Then, run the following command\. If you are migrating more than one website, run this command for each website you are migrating\.
+1. Open PowerShell as an administrator and change the directory to the `IISTools` folder\. Then, run the following command\.
 
    ```
    PS C:\>  Import-IISWebSiteWithDependentFeatures.ps1 -Path C:\DestinationFolder\EMP-IIS
    ```
-
-   `-WebSite` — specify the name of one or more website\(s\) identified in the **Sites** node\.
-
-   `-EMPPackagePath` — specify the folder to which the EMP package has been deployed\. For example, `C:\Programdata\EMP\Package0001`\.
 
    When you run this command, the installation of [MSDeploy](https://docs.microsoft.com/en-us/aspnet/web-forms/overview/deployment/web-deployment-in-the-enterprise/deploying-web-packages) provided with the EMP release and included in the `IISTools` folder will be silently installed if it is not already\.
 

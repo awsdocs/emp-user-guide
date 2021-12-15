@@ -2,4 +2,4 @@
 
 The EMP decision tree is a set of questions to assist you in determining whether EMP is the right solution for migrating applications onto modern Windows Operating Systems in AWS\.
 
-![\[The EMP decision tree\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-decision-tree-2.png)
+![\[The EMP decision tree\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-decision-tree-2-b.png)

@@ -1,6 +1,6 @@
 # Uninstall an EMP package<a name="emp-uninstall"></a>
 
-When you uninstall a package, all of the files, shortcuts, file type associations, and registry keys associated with the package are removed\. Files in use cannot be deleted, so they are marked for deletion for the next reboot\. After reboot, Windows removes the files marked for deletion along with the registry configuration for `Out of Process COM virtualization`\.
+When you uninstall a package, all of the files, shortcuts, file type associations, and registry keys associated with the package are removed\. Files in use, which cannot be deleted, are marked for deletion for the next reboot\. After reboot, Windows removes the files marked for deletion along with the registry configuration for `Out of Process COM virtualization`\.
 
 To uninstall a package, perform the following steps\.
 

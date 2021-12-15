@@ -331,7 +331,7 @@ An EMP\-packaged application must run on Windows Server 2019\. However, it fails
 
 ## RedirectX64PackagedRegistry<a name="emp-redirectx64packagedregistry"></a>
 
-The compatibility package builder detects whether it is running on a 64\-bit operating system and writes the `<Feature>RedirectX64PackagedRegistry</Feature>` configuration to the `clc` file so that the package knows which platform that it was created on\. Packages created on a 32\-bit operating system do not require this compatibility feature\. 
+The Compatibility Package Builder detects whether it is running on a 64\-bit operating system and writes the `<Feature>RedirectX64PackagedRegistry</Feature>` configuration to the `clc` file so that the package knows which platform that it was created on\. Packages created on a 32\-bit operating system do not require this compatibility feature\. 
 
 The following compatibility engine configuration example enables the `RedirectX64PackagedRegistry` feature in the `Compatibility.Package.Engine.clc` file\.
 

@@ -7,7 +7,7 @@ The following model and descriptions show the process of packaging a legacy appl
 **Note**  
 If the criteria for standard packaging is met, then we recommend that you apply this packaging method instead of the reverse packaging method\. 
 
-![\[Overview of the EMP packaging model.\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-packaging-model.png)
+![\[Overview of the EMP packaging model.\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-application-packaging-model-2.png)
 
 **Application server**  
 The legacy application server on which the legacy application is installed and runs\.
@@ -30,7 +30,7 @@ This testing server is the target operating system on which the EMP package must
 This server is the target operating system on which the EMP packages must run\. This server is used to validate the application in an EMP package in the target, on\-premises operating system\.
 
 **Note**  
-This step is required only if there is a benefit to test the package in an on\-premises environment to validate that it works as expected before migrating the application to AWS, or if it is required to troubleshoot any issues\. Testing during troubleshooting can detect whether issues are a result of the AWS environment setup, the EMP package, or the target operating system\.
+This step is required only if there is a benefit to test the package in an on\-premises environment to validate that it works as expected before migrating the application to AWS, or if it is required to troubleshoot any issues\. It helps identify whether issues are the result of the AWS environment setup, the EMP package, or the target operating system\.
 
 If you want someone at AWS or one of our partners to perform the application packaging for you, then submit a request to [AWS IQ](https://iq.aws.amazon.com/?utm=docs)\.
 

@@ -1,6 +1,6 @@
 # Best practices for packaging applications with AWS End\-of\-Support Migration Program \(EMP\) for Windows Server<a name="emp-best-practices"></a>
 
-Use the following best practices when packaging applications using EMP for successful packaging and faster migration lifecycles\.
+Following the best practices in this section when creating EMP packages increases the likelihood of creating successful EMP packages and achieving faster migration lifecycles\.
 
 **Note**  
 *Packaging* refers specifically to the process of capturing a legacy application using the EMP Package Builder on the source operating system\.
@@ -14,7 +14,7 @@ After an application has been installed or packaged on a server, we recommend th
 Creating snapshots of your packaging machine before carrying out any packaging would mean you could always restore your system to a clean state if you needed to recapture the application\. 
 
 **Disable background noise**  
-Turn off Microsoft Defender Antivirus, any other antivirus software, automatic Windows Update, and any Windows Security alerts to ensure that changes to the system by any of these background tasks are captured in the package\. If your security policy requires you that you keep antivirus software turned on, then you can unload them only when running Package Builder\. 
+Turn off Microsoft Defender Antivirus, any other antivirus software, and automatic Windows Update to ensure that changes to the system by any of these background tasks are not captured in the package\. If your security policy requires that you keep any antivirus software turned on, then you can unload them when performing the package builder process\. 
 
 **Application prerequisite software or dependencies**  
 If an application requires prerequisite software, for example, a legacy version of Java, and this software is not included or installed natively in the target operating system, then we recommend that you include these components in the EMP package for the application\. 
@@ -28,4 +28,4 @@ We recommend that you document how the application installation is completed, an
 When possible, we recommend that you create a single EMP package for each server that is being migrated\. This ensures a simple package design to help facilitate migration and future management of the application\. 
 
 **Discovery**  
-We recommend that you understand how to structure an EMP package before you create it in order to ensure successful package creation\. To understand the package structure and how the application works in its environment, we recommend that you perform application discovery\. You can use this information to structure the EMP package\. 
+We recommend that you understand how to structure an EMP package before you create it\. To understand the package structure and how the application works in its environment, we recommend that you perform application discovery\. For more information about the application discovery process, see [High\-level AWS End\-of\-Support Migration Program \(EMP\) for Windows Server application discovery exercise](emp-high-level-discovery.md)\. You can use this information to structure the EMP package\. 
