@@ -1,4 +1,4 @@
-# Optimize Process Monitor for Reverse Packaging<a name="emp-procmon"></a>
+# Optimize Process Monitor for Guided Reverse Packaging<a name="emp-procmon"></a>
 
 Process Monitor is an advanced monitoring tool for Windows that captures real\-time file system, registry, process, and thread activity\. The first step of the EMP reverse packaging process is to capture a Process Monitor \(procmon\) log of the entire functional running of the application on the source operating system\. The log is used to create an EMP package consisting of all of the required components for the application to successfully function on a modern operating systems after it has been migrated\. An incomplete capture can result in missing application components\.
 

@@ -2,6 +2,9 @@
 
 When installation media is available, an application is packaged with the EMP Compatibility Package Builder\. The package builder uses installation snapshot\-based packaging along with runtime analysis to create compatibility packages for applications\. 
 
+**Note**  
+Standard packaging supports packaging applications that are installed only on a single system drive \(typically, the `C:` drive\)\.
+
 **Topics**
 + [Stage 1: Install capture \(Required\)](#emp-media-install-capture)
 + [Stage 2: Runtime analysis \(Optional\)](#emp-media-runtime-analysis)

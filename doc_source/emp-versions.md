@@ -7,4 +7,5 @@ New releases of the AWS End\-of\-Support Migration Program \(EMP\) for Windows S
 
 | Version | Details | Release date | 
 | --- | --- | --- | 
+| TBD | Added support for Guided Reverse Packaging \(GRP\) | November 23, 2021 | 
 | 1\.0\.0 | Initial release | October 15, 2020 | 

@@ -76,7 +76,7 @@ To run the deployment tool, perform the following steps\.
    For example:
 
    ```
-   C:\EMP\Package0001\Compatibility.Package.Deployment.Exe /acceptEULA /deploydir "C:\Programdata\EMP" 
+   C:\EMP\Package0001\Compatibility.Package.Deployment.Exe /acceptEULA /deploydir "C:\Programdata\EMP" /DeployAllRegistry 
    ```
 
    When you run this command, the following operations are performed\.
@@ -85,5 +85,4 @@ To run the deployment tool, perform the following steps\.
    + Shortcuts for a path in the user desktop or **Start** menu are translated to the equivalent of the directory of the public profile\. 
    + Any file type associations specified in the `FileAssociation.xml` are created in HKLM root key of the registry\. 
    + If the `/deploydir` switch is provided, the package is copied to the specified folder\. 
-**Note**  
-The EMP package application registry is not written until a shortcut is first launched\.
+   + The `/DeployAllRegistry` switch makes the EMP package accessible for all users at the machine level\.

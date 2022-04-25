@@ -18,9 +18,9 @@ If the dependency information is not available, try the following steps:
    The following example `web.config` file, found in `C:\inetpub\wwwroot` of an IIS\-based application, shows a dependency on *Crystal Reports* assemblies:  
 ![\[Contents of example web.config file\]](http://docs.aws.amazon.com/emp/latest/userguide/images/emp-web-config-example.png)
 
-1. Capture a Process Monitor log file of your application usage\. See [Use Process Monitor to discover the files and registry keys used by the application](emp-getting-started-packaging-no-media.md#emp-getting-started-packaging-no-media-discovery) for the steps to capture a Process Monitor log file\. The captured log file can reveal third\-party application dependencies\.
+1. Capture a Process Monitor log file of your application usage\. See [Log runtime dependencies using Process Monitor](emp-procmon-log-runtime-dependencies.md) for the steps to capture a Process Monitor log file\. The captured log file can reveal third\-party application dependencies\.
 
-   The following example Process Monitor log file shows that the sample IIS\-based application depends on a legacy version of *Crystal Reports*\. An IIS worker process called `w2wp.exe` handles the web requests sent to the IIS web server for the configured IIS application pool\.  
+   The following example Process Monitor log file shows that the sample IIS\-based application depends on a legacy version of *Crystal Reports*\. An IIS worker process called `w3wp.exe` handles the web requests sent to the IIS web server for the configured IIS application pool\.  
 ![\[Contents of example Process Monitor log file\]](http://docs.aws.amazon.com/emp/latest/userguide/images/process-monitor-example-iis.png)
 
 ## Migrate your IIS\-based application<a name="emp-iis-packaging-migration"></a>
@@ -29,7 +29,7 @@ There are two stages to migrate an IIS\-based application:
 
 1. **Web application migration** — Migrate the web application configuration from the legacy version of the IIS\-based application on an unsupported Windows Server version to a modern version of IIS on a supported Windows Server version\.
 
-1. **Standard or reverse packaging \(optional\)** — This option applies only when application dependencies are identified during discovery\. Follow either the [standard](emp-getting-started-packaging-media.md) or [reverse](emp-getting-started-packaging-no-media.md) packaging process to capture the application dependencies in an EMP package and link them to the migrated IIS\-based web application running on a modern Windows Server version\.
+1. **Standard or guided reverse packaging \(optional\)** — This option applies only when application dependencies are identified during discovery\. Follow either the [standard](emp-getting-started-packaging-media.md) or [guided reverse](emp-getting-started-packaging-guided-reverse.md) packaging process to capture the application dependencies in an EMP package and link them to the migrated IIS\-based web application running on a modern Windows Server version\.
 
 ### Stage 1: Migrate your web application configuration<a name="emp-iis-packaging-migrate-config"></a>
 
@@ -95,7 +95,7 @@ Apply the following steps to the target server to which the IIS\-based web appli
 
 This procedure is necessary only if you identify application dependencies in the discovery phase\.
 
-1. Follow either the [standard](emp-getting-started-packaging-media.md) or [reverse](emp-getting-started-packaging-no-media.md) packaging process to capture the application dependencies in an EMP package\. Move the package to the target server and [deploy ](emp-deploy.md)the package on the target server with an additional `/DeployAllRegistry` switch\. 
+1. Follow either the [standard](emp-getting-started-packaging-media.md) or [guided reverse](emp-getting-started-packaging-guided-reverse.md) packaging process to capture the application dependencies in an EMP package\. Move the package to the target server and [deploy ](emp-deploy.md)the package on the target server with an additional `/DeployAllRegistry` switch\. 
 
    **Example command**
 

@@ -1,6 +1,7 @@
 # AWS End\-of\-Support Migration Program \(EMP\) for Windows Server System requirements<a name="emp-supported-os"></a>
 
 AWS End\-of\-Support Migration Program \(EMP\) for Windows Server supports the following operating systems:
++ Windows Server 2019 \(64\-bit\)
 + Windows Server 2016 \(64\-bit\)
 + Windows Server 2012 R2 \(64\-bit\)
 + Windows Server 2008 R2 \(64\-bit\)

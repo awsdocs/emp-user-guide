@@ -7,6 +7,7 @@ This section includes information to help you manage EMP packages, including bes
 + [Compatibility package features](emp-compatibility-package-features.md)
 + [Edit, upgrade, and maintain packages](emp-edit-upgrade-maintain.md)
 + [Optimize Process Monitor](emp-procmon.md)
++ [Log runtime dependencies](emp-procmon-log-runtime-dependencies.md)
 + [Update a deployed package](emp-deploy-updated-package.md)
 + [Uninstall a package](emp-uninstall.md)
 + [Enable logging](emp-logging.md)
